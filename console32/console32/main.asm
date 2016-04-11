@@ -20,50 +20,51 @@ test1:
 	invoke StdOut , ADDR getKey
 	invoke StdIn , ADDR key,51
 ;;;;;;;;;done getting the plaintext/key;;;;;;;;
-	mov ebx , SIZEOF plainText
-	mov ecx , 1
-    call letterSwitch
 
+	mov ebx ,SIZEOF plainText
+	mov edi , 0
+encrypt:
+	lea eax , [key + edi]
+	push eax
+    call letterSwitch
+	inc edi 
+	cmp ebx,0
+	je finish
+	dec ebx 
+	jmp encrypt
+
+finish:
 	ret
 main endp
 
 
 letterSwitch proc
 
-pop ecx
-mov ecx,25
-mov al , [plainText]
-mov edi , 0
-mov esi , 0
-PlainText:
-	mov bl , [alph+edi]
-	cmp bl,al
-	je KeyText
-	inc edi
-	loop PlainText
+	mov ecx,0
+	mov dl , 0
+	mov cl , [key]
+plainAdd:
+	mov al , [plainText]
 
-resetLoop:
-	mov ecx, 25
-	mov al , [key]
-
-KeyText:
-	mov bl , [alph + esi]
-	cmp al,bl
+keyAdd:
+	mov bl ,[alph]
+	cmp bl,cl
 	je check
-	inc esi
-	loop KeyText
+	inc dl 
+	loop keyAdd
 
 check:
-	add esi , edi
-	cmp esi,25
-	jl Finish
-	sub esi , 25
-	
-Finish:
-	mov al , [alph + esi]
-	;invoke StdOut , ADDR [esi]
-	mov [jkd] , al
-	invoke StdOut , ADDR [jkd]
+	add dl,al
+	cmp dl, 7Ah
+	jle finish
+	sub dl,26
+
+finish:
+
+	mov jkd , dl
+	lea eax, jkd
+	invoke StdOut,ADDR jkd
+
 letterSwitch endp
 
 end main
