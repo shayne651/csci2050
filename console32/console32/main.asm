@@ -1,87 +1,77 @@
 include \masm32\include\masm32rt.inc
 
-.data
-plainText BYTE 51 DUP(0),0
-getString db "Please enter a String (1-50 chars): ",0
-cipherText BYTE 51 DUP(0),0
-key db 51 DUP(0),0
-getKey db "please enter a key (has to be the same size as the message): ",0
-alph BYTE "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",0
-jkd BYTE 51 DUP(0),0
-newLine BYTE 0ah,0dh,0
+.data 
+guess BYTE "Guess the number(1-50): ",0
+wrong BYTE "Wrong guess ",0
+newLine BYTE 0ah,0bh,0
+guessNum DWORD 0
+numTStr BYTE 11 DUP(0)
+startAgain BYTE "do you want to play again?",0
+startInput BYTE 4 DUP(0),0
+correctG BYTE "You guessed Correct",0
+number DWORD 0
 
-.code 
-main proc
 
-test1:
-;;;;;;;;This is sending text to the console and getting the key/message;;;;
-	invoke StdOut , ADDR getString
-	invoke StdIn , ADDR plainText,51
-	mov esi , eax
-	invoke StdOut , ADDR getKey
-	invoke StdIn , ADDR key,51
-;;;;;;;;;done getting the plaintext/key;;;;;;;;
+.code
+main proc 
 
-;;;;;;;;;;;padding key;;;;;;;;;;;;;;;;
-
-sub esi , eax
-	mov ecx , esi
-	mov esi,0
-	mov edi,eax
+Start:
 	
-padKey:
-	mov al , [key+esi]
-	mov [key + edi] , al
-	inc esi
-	inc edi
-	loop padKey
+	invoke StdOut , ADDR guess
+	invoke StdIn , ADDR numTStr , 10
+	invoke atodw , ADDR numTStr
+	mov guessNum , eax
 
-;;;;;;;;;;;/end padding key;;;;;;;;
+	pushd 50
 
+	call randomSeed
+	call randomNum
+	mov edi , [number]
+	cmp guessNum,edi
+	jne Wrong
+	je Correct
 
-;;;;;;;;;encrypting the message;;;;;;;;;;;;;
-	mov esi , 10
-	mov edi , 0
-encrypt:
-
-    mov ecx,0
-	mov dl , 0
-	mov cl , [key + edi]
-plainAdd:
-	mov al , [plainText + edi]
-
-keyAdd:
-	mov bl ,[alph]
-	cmp bl,cl
-	je check
-	inc dl 
-	loop keyAdd
-
-check:
-	add dl,al
-	cmp dl, "z"
-	jle finish
-	sub dl,26
-
-finish:
+Wrong:
+	invoke StdOut, ADDR wrong
+	jmp replay
 	
-	mov jkd , dl
-	invoke StdOut , ADDR [jkd]
+
+Correct:
+	invoke StdOut , ADDR correctG
+	invoke StdOut , ADDR newLine
 
 
-	inc edi 
-	cmp ebx,0
-	je Finish
-	dec esi 
-	cmp esi , 0
-	jnz encrypt
+replay:
+	invoke StdOut , ADDR startAgain
+	invoke StdIn , ADDR startInput , 3
+	cmp startInput,"y"
+	je Loops
+	jne Finish
 
-;;;;;;;;;encryption finished;;;;;;;;;;;;;
+Loops:
+jmp Start
 
 Finish:
-	invoke StdOut , ADDR jkd
 
 	mov eax,0
 	ret
 main endp
+
+randomSeed proc
+
+	invoke GetTickCount
+	invoke nseed,eax
+
+	ret
+randomSeed endp
+
+randomNum proc
+
+	mov eax,[esp + 4]
+	invoke nrandom , eax
+	mov number ,eax
+
+	ret
+
+randomNum endp
 end main

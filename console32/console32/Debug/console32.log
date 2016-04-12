@@ -1,11 +1,11 @@
-﻿Build started 16/04/11 4:12:38 PM.
+﻿Build started 16/04/11 8:35:19 PM.
      1>Project "C:\Users\shayn_000\Desktop\cipher\console32\console32\console32.vcxproj" on node 2 (Build target(s)).
      1>_MASM:
-         Assembling Main.asm...
-         cmd.exe /C "C:\Users\shayn_000\AppData\Local\Temp\tmp633ec96dd64841218a41dbe581ff8a15.cmd"
-         ml.exe /c /nologo /Zi /Fo"Debug\Main.obj" /W3 /errorReport:prompt /Fl /TaMain.asm
+         Assembling main.asm...
+         cmd.exe /C "C:\Users\shayn_000\AppData\Local\Temp\tmp987961f68c0c40158e3b9771cf82bef6.cmd"
+         ml.exe /c /nologo /Zi /Fo"Debug\main.obj" /W3 /errorReport:prompt /Fl /Tamain.asm
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\shayn_000\Desktop\cipher\console32\Debug\console32.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\shayn_000\Desktop\cipher\console32\Debug\console32.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 /SAFESEH:NO Debug\Main.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\shayn_000\Desktop\cipher\console32\Debug\console32.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\shayn_000\Desktop\cipher\console32\Debug\console32.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /ENTRY:"main" /DYNAMICBASE /FIXED:NO /NXCOMPAT /MACHINE:X86 /SAFESEH:NO Debug\main.obj
          console32.vcxproj -> C:\Users\shayn_000\Desktop\cipher\console32\Debug\console32.exe
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MetaGen.targets(52,5): warning MSB4018: The "METAGEN" task failed unexpectedly.
 C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MetaGen.targets(52,5): warning MSB4018: System.BadImageFormatException: Could not load file or assembly 'file:///C:\Users\shayn_000\Desktop\cipher\console32\Debug\console32.exe' or one of its dependencies. The module was expected to contain an assembly manifest.
@@ -31,4 +31,4 @@ C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.MetaGen.targets
 
 Build succeeded.
 
-Time Elapsed 00:00:00.80
+Time Elapsed 00:00:00.73
